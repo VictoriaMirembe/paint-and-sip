@@ -221,12 +221,12 @@ export default async function DashboardPage() {
                     <Overview orders={orders}/>
                   </CardContent>
                 </Card>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 ">
+              {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 ">
              
                 <Card className="col-span-9">
                     <RecentSales />
                 </Card>
-              </div>
+              </div> */}
               {/* <h2>ooooo</h2> */}
             </TabsContent>
             <TabsContent value="analytics" className="space-y-4">
