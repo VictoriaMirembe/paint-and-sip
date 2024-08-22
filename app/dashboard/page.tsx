@@ -138,7 +138,8 @@ export default async function DashboardPage() {
               </TabsTrigger> */}
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <h2>hello</h2>
+              {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
               <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -214,7 +215,7 @@ export default async function DashboardPage() {
                 </Card>
 
 
-              </div>
+              </div> */}
               <Card className="col-span-8 !w-full ">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
