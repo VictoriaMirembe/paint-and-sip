@@ -41,7 +41,7 @@ export default async function DashboardPage() {
     return []; 
   });
   const tables = await getTables().catch(error => {
-    console.error( error);
+    console.error("Error fetching tables:", error);
     return [];
   });
   
@@ -133,12 +133,9 @@ export default async function DashboardPage() {
               <TabsTrigger value="analytics">
                 Tables
               </TabsTrigger>
-              {/* <TabsTrigger value="orders">
-              Orders
-              </TabsTrigger> */}
+             
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              <h2>hello</h2>
               {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
               <Card>
@@ -215,7 +212,7 @@ export default async function DashboardPage() {
                 </Card>
 
 
-              </div> */}
+              </div>
               <Card className="col-span-8 !w-full ">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
@@ -225,14 +222,12 @@ export default async function DashboardPage() {
                   </CardContent>
                 </Card>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 ">
-                
-                {/* <Card className="col-span-3">
-                    <PeopleSales />
-                </Card> */}
+             
                 <Card className="col-span-9">
                     <RecentSales />
                 </Card>
-              </div>
+              </div> */}
+              <h2>ooooo</h2>
             </TabsContent>
             <TabsContent value="analytics" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
