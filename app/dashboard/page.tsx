@@ -32,7 +32,11 @@ export default async function DashboardPage() {
     redirect("/");
   }
   
-  const orders =await getData("/order")
+  const orders = await getData("/order").catch(error => {
+    console.error("Error fetching orders:", error);
+    return [];  
+  });
+  
   const ingredients =await getIngredients()
   // console.log(orders)
   // console.log(orders);
@@ -50,14 +54,19 @@ export default async function DashboardPage() {
   
 
   const currentMonth = new Date().toLocaleString("default", { month: "short" });
-const totalCurrentMonth = monthlySales?.[currentMonth] ?? 0;
+  const totalCurrentMonth = monthlySales?.[currentMonth] ?? 0;
 
 
   const previousMonth = new Date();
   previousMonth.setMonth(previousMonth.getMonth() - 1);
-  const totalPreviousMonth = monthlySales[previousMonth.toLocaleString("default", { month: "short" })] || 0;
+  const previousMonthKey = previousMonth.toLocaleString("default", { month: "short" });
+  const totalPreviousMonth = monthlySales?.[previousMonthKey] ?? 0;
+  
 
-  const percentageChange = totalPreviousMonth ? ((totalCurrentMonth - totalPreviousMonth) / totalPreviousMonth) * 100 : 0;
+  const percentageChange = totalPreviousMonth 
+  ? ((totalCurrentMonth - totalPreviousMonth) / totalPreviousMonth) * 100 
+  : 0;
+
 
 
   const trendingDishCurrentMonth = orders.reduce((acc: any, order: any) => {
