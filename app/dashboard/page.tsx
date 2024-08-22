@@ -138,7 +138,7 @@ export default async function DashboardPage() {
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
-              {/* <Card>
+              <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
                     <svg
@@ -158,11 +158,11 @@ export default async function DashboardPage() {
                     <div className="text-2xl font-bold">{`$${totalCurrentMonth.toFixed(2)}`}</div>
                     <p className="text-xs text-muted-foreground">{`${percentageChange.toFixed(1)}% from last month`}</p>
                   </CardContent>
-              </Card> */}
+              </Card>
 
-              {/* <TrendingCard orders={orders}/> */}
+              <TrendingCard orders={orders}/>
 
-                {/* <Card>
+                <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">Total Complete Sales</CardTitle>
       <svg
@@ -183,9 +183,9 @@ export default async function DashboardPage() {
     <div className="text-2xl font-bold">{`${totalCurrentMonthOrders}`} sales</div>
     <p className="text-xs text-muted-foreground">{`${percentageChange.toFixed(1)}% from last month`}</p>
   </CardContent>
-                </Card> */}
+                </Card>
 
-                {/* <Card>
+                <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                      Total Sales
@@ -209,18 +209,18 @@ export default async function DashboardPage() {
                       +{orders.length} total sales 
                     </p>
                   </CardContent>
-                </Card> */}
+                </Card>
 
 
               </div>
-              {/* <Card className="col-span-8 !w-full ">
+              <Card className="col-span-8 !w-full ">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent  className="lg:pl-2 w-full ">
                     <Overview orders={orders}/>
                   </CardContent>
-                </Card> */}
+                </Card>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 ">
              
                 <Card className="col-span-9">
