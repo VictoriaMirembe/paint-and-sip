@@ -136,7 +136,7 @@ export default async function DashboardPage() {
              
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
               <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -226,8 +226,8 @@ export default async function DashboardPage() {
                 <Card className="col-span-9">
                     <RecentSales />
                 </Card>
-              </div> */}
-              <h2>ooooo</h2>
+              </div>
+              {/* <h2>ooooo</h2> */}
             </TabsContent>
             <TabsContent value="analytics" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
