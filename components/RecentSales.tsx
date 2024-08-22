@@ -19,8 +19,7 @@ import getData from "@/lib/getData"
 import PageNation from "./PageNation";
 
 export default async function RecentSales() {
-  const orders = await getData("order");
-  //  console.log(orders)
+  const orders = await getData("order") || []; 
   return (
     <Card>
       <CardHeader className="px-7">

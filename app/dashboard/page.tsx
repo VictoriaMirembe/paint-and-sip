@@ -31,19 +31,14 @@ export default async function DashboardPage() {
     redirect("/");
   }
   
-  const orders = await getData("order").catch(error => {
-    console.error("Error fetching orders:", error);
-    return []; // Default to an empty array if there is an error
-  });
+  const orders = (await getData("order")) || []; 
   
   const ingredients = await getIngredients().catch(error => {
     console.error("Error fetching ingredients:", error);
     return []; 
   });
-  const tables = await getTables().catch(error => {
-    console.error("Error fetching tables:", error);
-    return [];
-  });
+  const tables = (await getTables()) || []; // Default to empty array if undefined
+
   
   const monthlySales = (orders || []).reduce((acc: Record<string, number>, order: Order) => {
     const date = new Date(order.createdAt);
