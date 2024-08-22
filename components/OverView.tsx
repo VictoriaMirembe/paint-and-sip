@@ -14,7 +14,7 @@ interface Order {
 export function Overview({ orders }: { orders: Order[] }) {
   const monthlyTotals: { [key: string]: number } = {};
 
-  orders.forEach((order) => {
+  orders?.forEach((order) => {
     const date = new Date(order.createdAt);
     const month = date.toLocaleString('default', { month: 'short' });
     if (!monthlyTotals[month]) {
