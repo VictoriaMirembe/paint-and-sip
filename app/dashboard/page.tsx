@@ -25,7 +25,6 @@ interface Order {
 }
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
- 
   const user = session?.user;
   const role = user?.role;
   if (role === "USER") {
@@ -34,96 +33,82 @@ export default async function DashboardPage() {
   
   const orders = await getData("/order").catch(error => {
     console.error("Error fetching orders:", error);
-    return [];  
+    return [];
   });
   
-  const ingredients =await getIngredients()
-  // console.log(orders)
-  // console.log(orders);
+  const ingredients = await getIngredients();
   const tables = await getTables();
   
-  const monthlySales = orders?.reduce((acc: Record<string, number>, order: Order) => {
+  const monthlySales = (orders || []).reduce((acc: Record<string, number>, order: Order) => {
     const date = new Date(order.createdAt);
     const month = date.toLocaleString("default", { month: "short" });
     if (order.status === "served") {
       acc[month] = (acc[month] || 0) + order.total;
     }
     return acc;
-  }, {});
+  }, {} as Record<string, number>);
   
-  
-
   const currentMonth = new Date().toLocaleString("default", { month: "short" });
-  const totalCurrentMonth = monthlySales?.[currentMonth] ?? 0;
-
+  const totalCurrentMonth = monthlySales[currentMonth] ?? 0;
 
   const previousMonth = new Date();
   previousMonth.setMonth(previousMonth.getMonth() - 1);
   const previousMonthKey = previousMonth.toLocaleString("default", { month: "short" });
-  const totalPreviousMonth = monthlySales?.[previousMonthKey] ?? 0;
-  
+  const totalPreviousMonth = monthlySales[previousMonthKey] ?? 0;
 
   const percentageChange = totalPreviousMonth 
-  ? ((totalCurrentMonth - totalPreviousMonth) / totalPreviousMonth) * 100 
-  : 0;
+    ? ((totalCurrentMonth - totalPreviousMonth) / totalPreviousMonth) * 100 
+    : 0;
 
-
-
-  const trendingDishCurrentMonth = orders.reduce((acc: any, order: any) => {
+  const trendingDishCurrentMonth = (orders || []).reduce((acc: any, order: any) => {
     if (order.status === "served") {
       acc[order.dishName] = (acc[order.dishName] || 0) + 1;
     }
     return acc;
-  }, {}); // Provide an empty object as the initial value
-  
+  }, {});
 
   const trendingDishNameCurrentMonth = Object.keys(trendingDishCurrentMonth).reduce(
-    (a, b) =>
-      trendingDishCurrentMonth[a] > trendingDishCurrentMonth[b] ? a : b,
-    "" 
+    (a, b) => (trendingDishCurrentMonth[a] > trendingDishCurrentMonth[b] ? a : b),
+    ""
   );
-  
 
   const totalTrendingDishCurrentMonth = trendingDishCurrentMonth[trendingDishNameCurrentMonth] || 0;
 
   const previousMonthDate = new Date();
   previousMonthDate.setMonth(previousMonthDate.getMonth() - 1);
-  const trendingDishPreviousMonth = orders.reduce((acc: any, order: any) => {
+  const trendingDishPreviousMonth = (orders || []).reduce((acc: any, order: any) => {
     const date = new Date(order.createdAt);
     const month = date.toLocaleString("default", { month: "short" });
     if (month === previousMonthDate.toLocaleString("default", { month: "short" }) && order.status === "served") {
       acc[order.dishName] = (acc[order.dishName] || 0) + 1;
     }
     return acc;
-  }, {}); 
+  }, {});
   
-
   const trendingDishNamePreviousMonth = Object.keys(trendingDishPreviousMonth).reduce(
-    (a, b) =>
-      trendingDishPreviousMonth[a] > trendingDishPreviousMonth[b] ? a : b,
-    // Provide an initial value here (e.g., an empty string or null)
+    (a, b) => (trendingDishPreviousMonth[a] > trendingDishPreviousMonth[b] ? a : b),
     ""
   );
-  
 
   const totalTrendingDishPreviousMonth = trendingDishPreviousMonth[trendingDishNamePreviousMonth] || 0;
 
-  const percentageChangeTrendingDish = ((totalTrendingDishCurrentMonth - totalTrendingDishPreviousMonth) / totalTrendingDishPreviousMonth) * 100;
+  const percentageChangeTrendingDish = totalTrendingDishPreviousMonth
+    ? ((totalTrendingDishCurrentMonth - totalTrendingDishPreviousMonth) / totalTrendingDishPreviousMonth) * 100
+    : 0;
 
-  const totalCurrentMonthSales = orders.reduce((acc:any, order:any) => {
+  const totalCurrentMonthSales = (orders || []).reduce((acc:any, order:any) => {
     if (order.status === "served") {
       return acc + 1; 
     }
     return acc;
   }, 0);
+
   const previousMonthTotalSales = totalCurrentMonthSales * 0.9; 
   const percentageChangeTotalSales = ((totalCurrentMonthSales - previousMonthTotalSales) / previousMonthTotalSales) * 100;
 
-
-  const totalCurrentMonthOrders=orders.filter((order:any)=>order.status === "served").length;
+  const totalCurrentMonthOrders = (orders || []).filter((order:any) => order.status === "served").length;
   const previousMonthTotalOrders = totalCurrentMonthOrders * 0.85; 
   const percentageChangeTotalOrders = ((totalCurrentMonthOrders - previousMonthTotalOrders) / previousMonthTotalOrders) * 100;
-
 
   return (
     <>
