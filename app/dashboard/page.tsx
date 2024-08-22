@@ -38,24 +38,27 @@ export default async function DashboardPage() {
   // console.log(orders);
   const tables = await getTables();
   
-  const monthlySales = orders?.reduce((acc: any, order: any) => {
+  const monthlySales = orders?.reduce((acc: Record<string, number>, order: Order) => {
     const date = new Date(order.createdAt);
     const month = date.toLocaleString("default", { month: "short" });
     if (order.status === "served") {
       acc[month] = (acc[month] || 0) + order.total;
     }
     return acc;
-  }, {}); // Provide an empty object as the initial value
+  }, {});
+  
   
 
   const currentMonth = new Date().toLocaleString("default", { month: "short" });
-  const totalCurrentMonth = monthlySales[currentMonth] || 0;
+const totalCurrentMonth = monthlySales?.[currentMonth] ?? 0;
+
 
   const previousMonth = new Date();
   previousMonth.setMonth(previousMonth.getMonth() - 1);
   const totalPreviousMonth = monthlySales[previousMonth.toLocaleString("default", { month: "short" })] || 0;
 
-  const percentageChange = ((totalCurrentMonth - totalPreviousMonth) / totalPreviousMonth) * 100;
+  const percentageChange = totalPreviousMonth ? ((totalCurrentMonth - totalPreviousMonth) / totalPreviousMonth) * 100 : 0;
+
 
   const trendingDishCurrentMonth = orders.reduce((acc: any, order: any) => {
     if (order.status === "served") {
