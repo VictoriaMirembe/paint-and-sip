@@ -31,10 +31,14 @@ export default function Login({ users }: any) {
       setIsLoading(true);
   
       const response = await signIn('credentials', {
-        // email: data.email,
+        email: data.email,
         password: data.password,
         redirect: false,
       });
+
+      const userData=response
+
+      // console.log(userData)
       if (response?.error) {
         throw new Error(response.error);
       }

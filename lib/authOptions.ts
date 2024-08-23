@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
                         emailVerified: existingUser.emailVerified,
                         role: existingUser.role,
                     };
-
+                    console.log(user)
                     return user;
                 } catch (error) {
                     console.error('Authentication error:', error);
