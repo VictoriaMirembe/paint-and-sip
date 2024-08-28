@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
@@ -16,7 +16,7 @@ export function Overview({ orders }: { orders: Order[] }) {
 
   orders?.forEach((order) => {
     const date = new Date(order.createdAt);
-    const month = date.toLocaleString('default', { month: 'short' });
+    const month = date.toLocaleString("default", { month: "short" });
     if (!monthlyTotals[month]) {
       monthlyTotals[month] = order.total;
     } else {
@@ -51,7 +51,7 @@ export function Overview({ orders }: { orders: Order[] }) {
           fontSize={14}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickFormatter={(value) => `ugx ${value}`}
         />
         <Bar
           dataKey="total"

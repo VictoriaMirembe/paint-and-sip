@@ -44,7 +44,7 @@ export default async function RecentSales() {
                   <TableCell>{order.orderId}</TableCell>
                   <TableCell className="md:table-cell lg:table-cell hidden">{order.status}</TableCell>
                   <TableCell className="md:table-cell lg:table-cell hidden">{new Date(order.createdAt).toLocaleDateString()}</TableCell>
-                  <TableCell>{`$${order.total.toFixed(2)}`}</TableCell>
+                  <TableCell>{`ugx ${order.total.toFixed(2)}`}</TableCell>
                 </TableRow>
                 )
               })
